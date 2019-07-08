@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,10 @@ public class FragmentMemo extends Fragment {
         View view = inflater.inflate(R.layout.fragment_memo, container, false);
         ArrayAdapter adapter = new ArrayAdapter(getActivity(),R.layout.view_memo, memoList);
 
+        Button btnEdit = view.findViewById(R.id.btnEdit);
+        Button btnDelete = view.findViewById(R.id.btnDelete);
+        Button btnDetail = view.findViewById(R.id.btnDetail);
+
         mLstMemo = view.findViewById(R.id.lstMemo);
         view.findViewById(R.id.btnNewMemo).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +50,7 @@ public class FragmentMemo extends Fragment {
                 startActivity(i);
             }
         });
-        MemberBean memberBean = new MemberBean();
+        MemberBean memberBean  = FileDB.getLoginMember(getActivity());
         // 메모 리스트 획득
         memoList = FileDB.getMemoList(getActivity(), memberBean.memId);
         // adapter 생성 및 적요

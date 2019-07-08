@@ -99,11 +99,12 @@ public class NewMemoActivity extends AppCompatActivity {
 
         //TODO 파일DB 에 저장처리
         MemoBean memoBean = new MemoBean();
+        MemberBean memberBean = FileDB.getLoginMember(this);
         FileDB fileDB = new FileDB();
         memoBean.memoPicPath = photoPath;
         memoBean.memo = memoStr;
         memoBean.memoDate = new SimpleDateFormat("yyyy-MM-dd HH").format(new Date());
-        fileDB.addMemo(this, mMemberBean.memId, memoBean);
+        fileDB.addMemo(this, memberBean.memId, memoBean);
 
     }
 

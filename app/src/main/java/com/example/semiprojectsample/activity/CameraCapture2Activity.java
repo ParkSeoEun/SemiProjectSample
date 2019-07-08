@@ -114,6 +114,11 @@ public class CameraCapture2Activity extends AppCompatActivity {
             Toast.makeText(this, "입력하신 회원 아이디를 이미 존재 합니다.", Toast.LENGTH_LONG).show();
             return;
         }
+        // 사진이 찍혔는지 확인
+        if(mPhotoPath== null) {
+            Toast.makeText(this, "사진이 찍히지 않았습니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         memberBean.memPw = pw1;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

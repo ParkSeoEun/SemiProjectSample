@@ -13,16 +13,22 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.semiprojectsample.R;
+import com.example.semiprojectsample.bean.MemberBean;
 import com.example.semiprojectsample.bean.MemoBean;
+import com.example.semiprojectsample.db.FileDB;
 import com.example.semiprojectsample.fragment.FragmentCamera;
 import com.example.semiprojectsample.fragment.FragmentMemoWrite;
 import com.google.android.material.tabs.TabLayout;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class NewMemoActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private ViewPagerAdapter mViewPagerAdapter;
+    private static MemberBean mMemberBean ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,7 @@ public class NewMemoActivity extends AppCompatActivity {
 
         //탭생성
         mTabLayout.addTab(mTabLayout.newTab().setText("메모"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("회원정보"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("사진"));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //ViewPager 생성
@@ -92,8 +98,12 @@ public class NewMemoActivity extends AppCompatActivity {
         Toast.makeText(this, "memoStr: " + memoStr + ", photoPath: " + photoPath, Toast.LENGTH_LONG).show();
 
         //TODO 파일DB 에 저장처리
-        MemoBean
-
+        MemoBean memoBean = new MemoBean();
+        FileDB fileDB = new FileDB();
+        memoBean.memoPicPath = photoPath;
+        memoBean.memo = memoStr;
+        memoBean.memoDate = new SimpleDateFormat("yyyy-MM-dd HH").format(new Date());
+        fileDB.addMemo(this, mMemberBean.memId, memoBean);
 
     }
 

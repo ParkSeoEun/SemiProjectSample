@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,10 +22,14 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.example.semiprojectsample.R;
+import com.example.semiprojectsample.bean.MemberBean;
+import com.example.semiprojectsample.db.FileDB;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -32,6 +37,8 @@ public class JoinActivity extends AppCompatActivity {
     private static final int REQ_TAKE_PHOTO = 2222;
     private static final int REQ_TAKE_ALBUM = 3333;
     private static final int REQ_TAKE_IMAGE_CROP = 4444;
+    private static MemberBean mMemberBean;
+    private static FileDB mFileDB;
 
     //멤버변수
     private ImageView mImgProfile;
@@ -41,7 +48,6 @@ public class JoinActivity extends AppCompatActivity {
     private Uri mProviderUri = null;
     private Uri mPhotoUri = null;
     private Uri mAlbumUri = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +101,7 @@ public class JoinActivity extends AppCompatActivity {
 
     //회원가입 작업시작
     private void joinProcess() {
-
     }
-
-
 
     // 이미지 파일명 생성
     private File createFileName() {

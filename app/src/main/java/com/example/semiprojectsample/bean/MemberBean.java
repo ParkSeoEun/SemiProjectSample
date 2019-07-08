@@ -11,5 +11,4 @@ public class MemberBean {
     public String memPw;
     public String memRegDate;
     public List<MemoBean> memoList;
-
 }

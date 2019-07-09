@@ -3,12 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.FragmentModifyWrite">
+    tools:context=".fragment.FragmentMemoWrite">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/edtWriteModify"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        android:ems="10"
+        android:hint="메모를 입력하세요"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:lines="10"
+        android:maxLines="10"
+        android:singleLine="false" />
 </FrameLayout>

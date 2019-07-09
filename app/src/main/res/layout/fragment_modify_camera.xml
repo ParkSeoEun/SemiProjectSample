@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.FragmentModifyCamera">
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context=".fragment.FragmentCamera">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+
+    <ImageView
+        android:id="@+id/imgMemoModify"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        tools:src="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnCaptureModify"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="center_horizontal"
+        android:text="사진찍기" />
+</LinearLayout>

@@ -4,14 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:weightSum="1"
-
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.15"
+        android:layout_height="wrap_content"
         android:background="#DDDAD4"
         android:orientation="horizontal">
 
@@ -24,28 +21,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txtMemo"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.7"
+                android:layout_height="77dp"
                 android:text="TextView" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.3"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btnEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_margin="2dp"
+                    android:layout_weight="1"
                     android:background="#F9CC3A"
                     android:text="수정" />
 
@@ -53,8 +47,8 @@
                     android:id="@+id/btnDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_margin="2dp"
+                    android:layout_weight="1"
                     android:background="#F9CC3A"
                     android:text="삭제" />
 
@@ -62,8 +56,8 @@
                     android:id="@+id/btnDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_margin="2dp"
+                    android:layout_weight="1"
                     android:background="#F9CC3A"
                     android:text="상세보기" />
             </LinearLayout>

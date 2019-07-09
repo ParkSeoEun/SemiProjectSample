@@ -100,51 +100,66 @@ public class FileDB {
         String str = getSP(context).getString("loginMemberBean", null);
         if(str == null) return null;
         MemberBean memberBean = mGson.fromJson(str, MemberBean.class);
+        getFindMember(context, memberBean.memId);
         return memberBean;
     }
 
     // 메모를 추가하는 메소드
-    public static void addMemo(Context context, String memId, MemoBean memoBean) {
-        MemberBean findMember = getFindMember(context, memId);
-        if(findMember == null) return;
+    public static void addMemo(Context context,  MemoBean memoBean) {
+        MemberBean memberBean = getLoginMember(context);
+        if(memberBean == null) return;
 
-        List<MemoBean> memoList = findMember.memoList;
+        List<MemoBean> memoList = memberBean.memoList;
         if(memoList == null) {
             memoList = new ArrayList<>();
         }
         //고유 메모 ID를 생성
-        memoBean.memoID = System.currentTimeMillis();
+        memoBean.memoId = System.currentTimeMillis();
         memoList.add(memoBean);
-        findMember.memoList = memoList;
+        memberBean.memoList = memoList;
         //저장
-        setMember(context, findMember);
+        setMember(context, memberBean);
     }
 
     // 기존 메모 교체
-    public static void setMemo(Context context, String memId, MemoBean memoBean) {
-        MemberBean findMember = getFindMember(context, memId);
-        if(findMember == null) return;
-
-        List<MemoBean> memoList = findMember.memoList;
-
-        memoList.add(memoBean);
-        findMember.memoList = memoList;
-        setMember(context, findMember);
+    public static void setMemo(Context context,  MemoBean memoBean) {
+        MemberBean memberBean = getLoginMember(context);
+        if(memberBean == null && memberBean.memoList == null) {
+            return;
+        }
+        List<MemoBean> memoList = memberBean.memoList;
+        for(int i=0 ; i<memoList.size();i++) {
+            MemoBean mBean = memoList.get(i);
+            if(mBean.memoId == memoBean.memoId) {
+                // 찾음
+                memoList.set(i, memoBean); // 교체
+                break;
+            }
+        }
+        // 업데이트된 메모 리스트를 저장
+        memberBean.memoList = memoList;
+        setMember(context, memberBean);
     }
     // 메모 삭제
-    public static void delMemo(Context context, String memId, int memoId) {
-        MemberBean findMember = getFindMember(context, memId);
-        if(findMember == null) return;
+    public static void delMemo(Context context, long memoId) {//long index) {
+        MemberBean memberBean = getLoginMember(context);
+        List<MemoBean> memoList = memberBean.memoList;
+        if(memoList == null) return;
 
-        List<MemoBean> memoList = findMember.memoList;
-
-        memoList.remove(memoId);
-        findMember.memoList = memoList;
-        setMember(context, findMember);
+        for(int i=0; i<memoList.size(); i++) {
+            MemoBean mBean = memoList.get(i);
+            if(mBean.memoId == memoId) {
+                memoList.remove(i);
+                break;
+            }
+        }
+        // 저장
+        memberBean.memoList = memoList;
+        setMember(context, memberBean);
     }
     // 메모 리스트 취득
-    public static List<MemoBean> getMemoList(Context context, String memId) {
-        MemberBean memberBean= getFindMember(context, memId);
+    public static List<MemoBean> getMemoList(Context context) {
+        MemberBean memberBean= getLoginMember(context);
         if(memberBean == null) return null;
 
         if(memberBean.memoList == null) {
@@ -154,15 +169,17 @@ public class FileDB {
         }
     }
     // 메모 획득
-    public static MemoBean findMemo(Context context, String memId, int memoId) {
-        MemberBean findMember = getFindMember(context, memId);
-        if(findMember == null)  return null;
-
-        List<MemoBean> memoList = findMember.memoList;
-
+    public static MemoBean findMemo(Context context, long memoId) {//int index {
+        MemberBean memberBean = getLoginMember(context);
+        List<MemoBean> memoList = memberBean.memoList;
         if(memoList == null) return null;
 
-        MemoBean bean = memoList.get(memoId);
-        return bean;
+        for(MemoBean bean : memoList) {
+            if(bean.memoId == memoId) {
+                // 찾았다
+                return bean;
+            }
+        }
+        return null;
     }
 }

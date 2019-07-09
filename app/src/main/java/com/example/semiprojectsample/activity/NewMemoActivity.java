@@ -17,6 +17,7 @@ import com.example.semiprojectsample.bean.MemberBean;
 import com.example.semiprojectsample.bean.MemoBean;
 import com.example.semiprojectsample.db.FileDB;
 import com.example.semiprojectsample.fragment.FragmentCamera;
+import com.example.semiprojectsample.fragment.FragmentMemo;
 import com.example.semiprojectsample.fragment.FragmentMemoWrite;
 import com.google.android.material.tabs.TabLayout;
 
@@ -90,22 +91,30 @@ public class NewMemoActivity extends AppCompatActivity {
         //2.두번째 프래그먼트의 mPhotoPath 값을 가져온다.
         FragmentCamera f1 = (FragmentCamera)mViewPagerAdapter.instantiateItem(mViewPager,1);
 
-        EditText edtWriteMemo = f0.getView().findViewById(R.id.edtWriteMemo);
-        String memoStr = edtWriteMemo.getText().toString();
-        String photoPath = f1.mPhotoPath;
+        if(f1.mPhotoPath == null) {
+            Toast.makeText(this, "사진을 찍지 않았습니다", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
 
-        Log.e("SEMI", "memoStr: " + memoStr + ", photoPath: " + photoPath);
-        Toast.makeText(this, "memoStr: " + memoStr + ", photoPath: " + photoPath, Toast.LENGTH_LONG).show();
+            EditText edtWriteMemo = f0.getView().findViewById(R.id.edtWriteMemo);
+            String memoStr = edtWriteMemo.getText().toString();
+            String photoPath = f1.mPhotoPath;
 
-        //TODO 파일DB 에 저장처리
-        MemoBean memoBean = new MemoBean();
-        MemberBean memberBean = FileDB.getLoginMember(this);
-        FileDB fileDB = new FileDB();
-        memoBean.memoPicPath = photoPath;
-        memoBean.memo = memoStr;
-        memoBean.memoDate = new SimpleDateFormat("yyyy-MM-dd HH").format(new Date());
-        fileDB.addMemo(this, memberBean.memId, memoBean);
+            Log.e("SEMI", "memoStr: " + memoStr + ", photoPath: " + photoPath);
+            Toast.makeText(this, "memoStr: " + memoStr + ", photoPath: " + photoPath, Toast.LENGTH_LONG).show();
 
+            //TODO 파일DB 에 저장처리
+            MemoBean memoBean = new MemoBean();
+            MemberBean memberBean = FileDB.getLoginMember(this);
+            FileDB fileDB = new FileDB();
+            memoBean.memoPicPath = photoPath;
+            memoBean.memo = memoStr;
+            memoBean.memoDate = new SimpleDateFormat("yyyy-MM-dd HH").format(new Date());
+            fileDB.addMemo(this, memoBean);
+
+            mViewPagerAdapter.notifyDataSetChanged();
+            finish();
+        }
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

@@ -27,9 +27,8 @@ public class FragmentModifyWrite extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_memo, container, false);
 
-        //Intent intent = getActivity().getIntent();
-        //long memoId = intent.getIntExtra("memoId",-1);
-        long memoId = this.getArguments().getLong("memoId");
+        Intent intent = getActivity().getIntent();
+        long memoId = intent.getIntExtra("memoId",-1);
 
         Toast.makeText(getActivity(), "memoId"+memoId, Toast.LENGTH_SHORT).show();
 

@@ -95,8 +95,9 @@ public class ModifyMemoActivity extends AppCompatActivity {
         String memoStr = edtWriteMemo.getText().toString();
         String photoPath = f1.mPhotoPath;
 
-        MemoBean bean = new MemoBean();
-        MemoBean memoBean = FileDB.findMemo(this, bean.memoId);
+        Intent intent = getIntent();
+        long memoId = intent.getLongExtra("memoId", -1);
+        MemoBean memoBean = FileDB.findMemo(this, memoId);
 
         // 사진수정이 안 되었을 시 photoPath 를 기존의 사진 경로로 지정
         if(photoPath == null) {

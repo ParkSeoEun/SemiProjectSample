@@ -59,9 +59,8 @@ public class FragmentModifyCamera extends Fragment {
         btnCaptureModify=view.findViewById(R.id.btnCaptureModify);
 
         // 현재 로그인한 회원의 메모리스트 불러오기
-        //Intent intent = getActivity().getIntent();
-        //long memoId = intent.getIntExtra("memoId",-1);
-        long memoId = this.getArguments().getLong("memoId");
+        Intent intent = getActivity().getIntent();
+        long memoId = intent.getIntExtra("memoId",-1);
         MemoBean memoBean = FileDB.findMemo(getActivity(), memoId);
         // 전에 찍은 이미지 불러오기
         Uri uri = Uri.parse(memoBean.memoPicPath);

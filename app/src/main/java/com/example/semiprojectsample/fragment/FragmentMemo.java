@@ -150,7 +150,7 @@ public class FragmentMemo extends Fragment {
             // 삭제 버튼 이벤트
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {/*
+                public void onClick(View view) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                     alertDialogBuilder.setTitle("메모 삭제");
                     alertDialogBuilder.setMessage("정말로 삭제하시겠습니까?").setCancelable(false)
@@ -163,19 +163,12 @@ public class FragmentMemo extends Fragment {
                             .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    MemberBean memberBean = FileDB.getLoginMember(mContext);
-                                    FileDB.delMemo(getActivity(), memberBean.memId,i);
+                                    FileDB.delMemo(getActivity(), memo.memoId);
                                     // 어댑터 갱신
                                     adapter.notifyDataSetChanged();
                                     mLstMemo.setAdapter(adapter);
                                 }
-                            });*/
-
-                    FileDB.delMemo(getActivity(), memo.memoId);
-                    // 어댑터 갱신
-                    adapter.notifyDataSetChanged();
-                    mLstMemo.setAdapter(adapter);
-
+                            });
                 }
             });
             // 상세보기 버튼 이벤트
